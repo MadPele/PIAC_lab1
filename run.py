@@ -1,7 +1,5 @@
 from flask import Flask
-from flask import request
 from flask import render_template
-from flask import abort, redirect, url_for, make_response
 
 
 app = Flask(__name__)
@@ -28,8 +26,8 @@ def contact():
 
 
 @app.errorhandler(404)
-def not_found_error(error):
-    return render_template('404.html'),
+def not_found_error():
+    return render_template('404.html')
 
 
 if __name__=='__main__':
