@@ -1,16 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contact</title>
-    <link rel="icon" type="image/png" href="/static/favicon.ico" />
-</head>
-<body>
-    <p><a style="margin-right: 20px" href="{{url_for('home')}}">Home</a>
-        <a style="margin-right: 20px" href="{{url_for('about')}}">About me</a>
-        <a style="margin-right: 20px" href="{{url_for('gallery')}}">Gallery</a>
-        <a style="margin-right: 20px" href="{{url_for('contact')}}">Contact</a></p>
+{% extends "base.html" %}
+{% block content %}
     <h1>Kontakt!</h1>
-    <p>W razie pytań pisz śmiało na <a href="mailto:mail@gmail.com">mail@gmail.com</a></p>
-</body>
-</html>
+    <div class="container">
+        <form action="https://formsubmit.co/andrzejderela@gmail.com" method="POST">
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                    </div>
+                    <div class="col">
+                        <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Your Message" class="form-control" name="message" rows="10" required></textarea>
+            </div>
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://piaclab1.azurewebsites.net">
+            <button type="submit" class="btn btn-lg btn-dark btn-block">Submit Form</button>
+        </form>
+    </div>
+{% endblock content %}
