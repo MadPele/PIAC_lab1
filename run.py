@@ -39,7 +39,7 @@ os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 
 app.config["GOOGLE_OAUTH_CLIENT_ID"] = "821397628860-f99glj2t8f9leglgeubqn1l1410ho2m0.apps.googleusercontent.com"
 app.config["GOOGLE_OAUTH_CLIENT_SECRET"] = "EfnLGwN51KVfaKfrHLJHJLMy"
-google_bp = make_google_blueprint(scope=["email", "profile", "openid"])
+google_bp = make_google_blueprint(scope=["email", "profile"])
 app.register_blueprint(google_bp, url_prefix="/login")
 
 
