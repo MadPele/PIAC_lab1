@@ -1,14 +1,58 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask import render_template
 from flask import request
 from AzureDB import AzureDB
 from datetime import datetime
-
+from flask_dance.contrib.github import make_github_blueprint, github
+from flask_dance.contrib.google import make_google_blueprint, google
+import secrets
+import os
 
 app = Flask(__name__)
 
+app.secret_key = secrets.token_hex(16)
 
-@app.route('/')
+# os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+# os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
+
+
+# GITHUB AUTH
+
+# github_blueprint = make_github_blueprint(client_id="86ce28230871d17590da",
+#                                          client_secret="7ba727859885e9b8a2ee0ff1dcf80004298a40ee")
+#
+# app.register_blueprint(github_blueprint, url_prefix='/login')
+#
+#
+# @app.route('/')
+# def github_login():
+#     if not github.authorized:
+#         return redirect(url_for('github.login'))
+#     else:
+#         account_info = github.get('/user')
+#     if account_info.ok:
+#         return render_template('index.html', title='Home')
+#     return '<h1>Request failed!</h1>'
+
+
+# GOOGLE AUTH
+
+app.config["GOOGLE_OAUTH_CLIENT_ID"] = "821397628860-f99glj2t8f9leglgeubqn1l1410ho2m0.apps.googleusercontent.com"
+app.config["GOOGLE_OAUTH_CLIENT_SECRET"] = "EfnLGwN51KVfaKfrHLJHJLMy"
+google_bp = make_google_blueprint(scope=["email", "profile", "openid"])
+app.register_blueprint(google_bp, url_prefix="/login")
+
+
+@app.route("/")
+def index():
+    if not google.authorized:
+        return redirect(url_for("google.login"))
+    resp = google.get("/oauth2/v1/userinfo")
+    assert resp.ok, resp.text
+    return render_template('index.html', title='Home')
+
+
+@app.route('/home')
 def home():
     return render_template('index.html', title='Home')
 
