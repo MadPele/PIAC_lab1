@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Edytowanie wpisu</h1>
+    <form style="margin-left: 30px; margin-top: 20px" action="/update" method="POST">
+        <div>
+            <input name="name" type="text" value="{{nick}}">
+        </div>
+        <div style="margin-top: 15px; margin-bottom: 15px">
+            <textarea name="text" rows="5" cols="40">{{comment}}</textarea>
+        </div>
+        <div>
+            <input type="hidden" name="id" value="{{id}}">
+            <input type="submit" class="ui secondary button" value="Wyślij">
+        </div>
+    </form>
+{% endblock content %}

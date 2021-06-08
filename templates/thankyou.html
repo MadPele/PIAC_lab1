@@ -1,4 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Dziękuję Ci bardzo za kontakt!</h1>
+    {% if metod == 'POST' %}
+        <h1>Twój wpis został dodany!</h1>
+    {% elif metod == 'DELETE' %}
+        <h1>Wpis został usnięty!</h1>
+    {% elif metod == 'UPDATE' %}
+        <h1>Wpis został edytowany!</h1>
+    {% endif %}
 {% endblock content %}

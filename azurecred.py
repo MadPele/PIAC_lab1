@@ -1,0 +1,5 @@
+AZDBSERVER = 'porfolio.database.windows.net'
+AZDBNAME = 'PIAClab1'
+AZDBUSER = 'madpele'
+AZDBPW = 'Pla33plA'
+AZDBDRIVER = '{ODBC Driver 17 for SQL Server}'

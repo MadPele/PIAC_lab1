@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Dodaj wpis do księgi gości</h1>
+    <form style="margin-left: 30px; margin-top: 20px" action="/thankyou" method="POST">
+        <div>
+            <input name="name" type="text" placeholder="Nick">
+        </div>
+        <div style="margin-top: 15px; margin-bottom: 15px">
+            <textarea name="comment" rows="5" cols="40" placeholder="Wpisz się!"></textarea>
+        </div>
+        <div>
+            <input type="submit" class="ui secondary button" value="Wyślij">
+        </div>
+    </form>
+{% endblock content %}

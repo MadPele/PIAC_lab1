@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Księga gości</h1>
+    <form style="margin-left: 15px; margin-top: 25px" action="/addcomment" method="GET">
+        <input class="ui secondary button" type="submit" value="Dodaj wpis">
+    </form>
+    <div class="ui container comments" style="font-size: large">
+        {% for result in data %}
+            <div class="comment" style="margin-top: 30px">
+                <div class="content">
+                    <span class="authour">{{result.name}}</span>
+                    <div class="metadata">
+                        <span class="date">{{result.date}}</span>
+                    </div>
+                    <div class="text">{{result.text}}</div>
+                </div>
+                <form action="/delete" method="POST" style="display: inline-block">
+                    <input type="hidden" name="id" value="{{result.id}}">
+                    <input type="submit" value="Usuń" class="ui red button">
+                </form>
+                <form action="/edit" method="POST" style="display: inline-block">
+                    <input type="hidden" name="id" value="{{result.id}}">
+                    <input type="submit" value="Edytuj" class="ui teal button">
+                </form>
+
+            </div>
+        {% else %}
+            <p>Brak wpisów </p>
+        {% endfor %}
+    </div>
+{% endblock content %}
