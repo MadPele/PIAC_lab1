@@ -33,10 +33,10 @@ def github_login():
         return redirect(url_for('github.login'))
     else:
         account_info = github.get('/user')
-    if account_info.ok:
-        return render_template('index.html', title='Home')
-        # account_info_json = account_info.json()
-        # return '<h1>Your Github name is {}'.format(account_info_json['login'])
+        if account_info.ok:
+            return render_template('index.html', title='Home')
+            # account_info_json = account_info.json()
+            # return '<h1>Your Github name is {}'.format(account_info_json['login'])
     return '<h1>Request failed!</h1>'
 
 
