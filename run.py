@@ -15,47 +15,44 @@ app.secret_key = secrets.token_hex(16)
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 
-app.config["GITHUB_OAUTH_CLIENT_ID"] = "9ef79816b268f73f3416"
-app.config["GITHUB_OAUTH_CLIENT_SECRET"] = "cd7425506758680d65db051fe070c6e3f9ab1be5"
-github_bp = make_github_blueprint()
-app.register_blueprint(github_bp, url_prefix="/login")
-
 # GITHUB AUTH
+
 # Local settings
-# github_blueprint = make_github_blueprint(client_id="86ce28230871d17590da",
-#                                          client_secret="7ba727859885e9b8a2ee0ff1dcf80004298a40ee")
+# app.config["GITHUB_OAUTH_CLIENT_ID"] = "86ce28230871d17590da"
+# app.config["GITHUB_OAUTH_CLIENT_SECRET"] = "7ba727859885e9b8a2ee0ff1dcf80004298a40ee"
 
 # Azure settings
-# github_blueprint = make_github_blueprint(client_id="9ef79816b268f73f3416",
-#                                          client_secret="cd7425506758680d65db051fe070c6e3f9ab1be5")
+# app.config["GITHUB_OAUTH_CLIENT_ID"] = "9ef79816b268f73f3416"
+# app.config["GITHUB_OAUTH_CLIENT_SECRET"] = "cd7425506758680d65db051fe070c6e3f9ab1be5"
 #
-# app.register_blueprint(github_blueprint, url_prefix='/login')
-
-
-@app.route('/')
-def github_login():
-    if not github.authorized:
-        return redirect(url_for("github.login"))
-    resp = github.get("/user")
-    assert resp.ok
-    return home()
+# github_bp = make_github_blueprint()
+# app.register_blueprint(github_bp, url_prefix="/login")
+#
+#
+# @app.route('/')
+# def github_login():
+#     if not github.authorized:
+#         return redirect(url_for("github.login"))
+#     resp = github.get("/user")
+#     assert resp.ok
+#     return home()
 
 
 # GOOGLE AUTH
 
-# app.config["GOOGLE_OAUTH_CLIENT_ID"] = "821397628860-f99glj2t8f9leglgeubqn1l1410ho2m0.apps.googleusercontent.com"
-# app.config["GOOGLE_OAUTH_CLIENT_SECRET"] = "EfnLGwN51KVfaKfrHLJHJLMy"
-# google_bp = make_google_blueprint(scope=["email", "profile"])
-# app.register_blueprint(google_bp, url_prefix="/login")
-#
-#
-# @app.route("/")
-# def index():
-#     if not google.authorized:
-#         return redirect(url_for("google.login"))
-#     resp = google.get("/oauth2/v1/userinfo")
-#     assert resp.ok, resp.text
-#     return render_template('index.html', title='Home')
+app.config["GOOGLE_OAUTH_CLIENT_ID"] = "821397628860-f99glj2t8f9leglgeubqn1l1410ho2m0.apps.googleusercontent.com"
+app.config["GOOGLE_OAUTH_CLIENT_SECRET"] = "EfnLGwN51KVfaKfrHLJHJLMy"
+google_bp = make_google_blueprint(scope=["email", "profile"])
+app.register_blueprint(google_bp, url_prefix="/login")
+
+
+@app.route("/")
+def index():
+    if not google.authorized:
+        return redirect(url_for("google.login"))
+    resp = google.get("/oauth2/v1/userinfo")
+    assert resp.ok, resp.text
+    return render_template('index.html', title='Home')
 
 
 @app.route('/home')
