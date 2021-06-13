@@ -24,9 +24,9 @@ os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 # Azure settings
 app.config["GITHUB_OAUTH_CLIENT_ID"] = "9ef79816b268f73f3416"
 app.config["GITHUB_OAUTH_CLIENT_SECRET"] = "cd7425506758680d65db051fe070c6e3f9ab1be5"
-#
-# github_bp = make_github_blueprint()
-# app.register_blueprint(github_bp, url_prefix="/login")
+
+github_bp = make_github_blueprint()
+app.register_blueprint(github_bp, url_prefix="/login")
 
 
 @app.route('/')
